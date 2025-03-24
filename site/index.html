@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sextoys Boutique</title>
+    <!-- Ajout de Font Awesome pour l'icône du panier -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #0f1419;
+            color: #e6e6e6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1a2329;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container h1 {
+            margin: 0 0 0 10px;
+            color: #f28c38;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .logo-container span {
+            font-size: 14px;
+            color: #b0b0b0;
+            display: block;
+            margin-top: -5px;
+        }
+        .cart-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .cart-container i {
+            color: #f28c38;
+            font-size: 24px;
+        }
+        .cart-container span {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #f28c38;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        .product-card {
+            background-color: #1f2a33;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card h3 {
+            font-size: 18px;
+            margin: 10px;
+            color: #f28c38;
+        }
+        .product-card p {
+            font-size: 14px;
+            margin: 0 10px 10px;
+            color: #b0b0b0;
+        }
+        .product-card button {
+            width: 100%;
+            padding: 10px;
+            background-color: #f28c38;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .product-card button:hover {
+            background-color: #d97706;
+        }
+        .cart-actions {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .cart-actions button {
+            padding: 12px 24px;
+            background-color: #f28c38;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cart-actions button:hover {
+            background-color: #d97706;
+            transform: scale(1.03);
+        }
+        .cart-actions button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>Sextoys Boutique</h1>
+            <span>Plaisir & Élégance</span>
+        </div>
+        <div class="cart-container">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+    <div class="products" id="products">
+        <!-- Les produits seront ajoutés dynamiquement -->
+    </div>
+    <div class="cart-actions">
+        <button id="next-button" disabled>Suivant</button>
+    </div>
+    <script>
+        const products = [
+            { name: "Sextoys 1", price: 0.00, image: "images/sextoys 1.jpg" },
+            { name: "Sextoys 2", price: 0.00, image: "images/sextoys 2.jpg" },
+            { name: "Sextoys 3", price: 0.00, image: "images/sextoys 3.jpg" },
+            { name: "Sextoys 4", price: 0.00, image: "images/sextoys 4.jpg" },
+            { name: "Sextoys 5", price: 0.00, image: "images/sextoys 5.jpg" },
+            { name: "Sextoys 6", price: 0.00, image: "images/sextoys 6.jpg" },
+            { name: "Sextoys 7", price: 0.00, image: "images/sextoys 7.jpg" },
+            { name: "Sextoys 8", price: 0.00, image: "images/sextoys 8.jpg" }
+        ];
+
+        const cart = [];
+        const productsContainer = document.getElementById('products');
+        const cartCount = document.getElementById('cart-count');
+        const nextButton = document.getElementById('next-button');
+
+        function renderProducts() {
+            productsContainer.innerHTML = '';
+            products.forEach((product, index) => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/250';">
+                    <h3>${product.name}</h3>
+                    <p>${product.price.toFixed(2)} € (Gratuit pour le test)</p>
+                    <button onclick="addToCart(${index})">Ajouter au panier</button>
+                `;
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        function addToCart(index) {
+            cart.push(products[index].name);
+            cartCount.textContent = cart.length;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            nextButton.disabled = cart.length === 0;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (cart.length > 0) {
+                window.location.href = 'personal-info.html';
+            }
+        });
+
+        renderProducts();
+    </script>
+</body>
+</html>

