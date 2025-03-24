@@ -1,6 +1,6 @@
 [build]
-  base = ""  # Laisse vide ou supprime cette ligne
-  publish = "site"  # Netlify publiera les fichiers à partir du dossier site/
+  base = ""
+  publish = "site"
   command = ""
 
 [functions]
@@ -10,3 +10,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
