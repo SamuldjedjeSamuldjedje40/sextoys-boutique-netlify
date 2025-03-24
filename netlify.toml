@@ -1,7 +1,10 @@
 [build]
-  base = "site"
-  publish = "site"
-  functions = "functions"
+  base = ""  # Laisse vide ou supprime cette ligne
+  publish = "site"  # Netlify publiera les fichiers à partir du dossier site/
+  command = ""
+
+[functions]
+  directory = "functions"
 
 [[redirects]]
   from = "/*"
