@@ -217,7 +217,7 @@
 
             try {
                 console.log('Envoi au serveur...');
-                const response = await fetch('/api/send-to-telegram', {
+                const response = await fetch('/.netlify/functions/sendtelegram', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
